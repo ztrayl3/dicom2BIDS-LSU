@@ -19,12 +19,6 @@ datadir = '/home/burleigh/Desktop/FCTM_S_Data/Scans_extract'  # Where extracted 
 
 # List of run names #
 # If name in .123 file is 'SET 1 HAB fMRI 1', label folder as 'A_hab_1'
-#runnames = ['SET 1 HAB fMRI 1', 'SET 1 HAB fMRI 2', 'SET 1 HAB fMRI 3', 'SET 1 HAB fMRI 4', 'SET 1 HAB fMRI 5', 'SET 1 HAB fMRI 6']
-#dirnames = ['A_hab_1', 'A_hab_2', 'A_hab_3', 'A_hab_4', 'A_hab_5', 'A_hab_6']
-#runnames = ['SET 2 HAB fMRI 1', 'SET 2 HAB fMRI 2', 'SET 2 HAB fMRI 3', 'SET 2 HAB fMRI 4', 'SET 2 HAB fMRI 5', 'SET 2 HAB fMRI 6']
-#dirnames = ['B_hab_1', 'B_hab_2', 'B_hab_3', 'B_hab_4', 'B_hab_5', 'B_hab_6']
-#runnames = ['SET 1 TASK fMRI 1', 'SET 1 TASK fMRI 2', 'SET 1 TASK fMRI 3', 'SET 1 TASK fMRI 4', 'SET 1 TASK fMRI 5', 'SET 1 TASK fMRI 6']
-#dirnames = ['A_task_1', 'A_task_2', 'A_task_3', 'A_task_4', 'A_task_5', 'A_task_6']
 runnames = ['SET 2 TASK fMRI 1', 'SET 2 TASK fMRI 2', 'SET 2 TASK fMRI 3', 'SET 2 TASK fMRI 4', 'SET 2 TASK fMRI 5', 'SET 2 TASK fMRI 6']
 dirnames = ['B_task_1', 'B_task_2', 'B_task_3', 'B_task_4', 'B_task_5', 'B_task_6']
 #runnames = ['MPRAGE']
@@ -74,7 +68,7 @@ for d in np.arange(0, len(subdirs)):
 				if not os.path.exists(exphasedir):
 					os.rename(rundir, exphasedir)
 				# Run dcm2niix to convert
-				os.system("dcm2niix -z y {}".format(exphasedir))
+				os.system("dcm2niix -z y -b y -ba y -x y {}".format(exphasedir))
 				# find nii file
 				src = glob.glob('*.gz')
 				# copy file to 'func' or 'anat' folder, rename accordingly
