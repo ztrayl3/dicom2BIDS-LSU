@@ -68,7 +68,7 @@ for d in np.arange(0, len(subdirs)):
 				if not os.path.exists(exphasedir):
 					os.rename(rundir, exphasedir)
 				# Run dcm2niix to convert
-				os.system("dcm2niix -z y -b y -ba y -x y {}".format(exphasedir))
+				os.system("dcm2niix -z y -b y -ba y {}".format(exphasedir))
 				# find nii file
 				src = glob.glob('*.gz')
 				# copy file to 'func' or 'anat' folder, rename accordingly
