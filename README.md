@@ -74,7 +74,7 @@ Again, less than 1000 subjects is assumed.
 ----
 ##### organize(base_dir, scan_dir, rnames, dnames, partID, scan_type):
 This function takes the dicom data from the MRI scan, converts it to nifti format and stores the resulting files.
-It works through reading of the lotus (.123) files within the series (ser#) folders. Within those files, if the rname is found that run is renamed with the respective dname (see code for more explanation).
+It works through reading of the lotus (.123) files within the series (ser#) folders [this actually might not be the case, rather it works by reading the header info from file .123 within the series, which we picked because it looked like a lotus file (.123). This is suboptimal for serieses with under 123 volumes, but could be fixed manuall]. Within those files, if the rname is found that run is renamed with the respective dname (see code for more explanation).
 
 * base_dir = the home folder of the study (example: "../FCTM_S_Data") (string)
 
