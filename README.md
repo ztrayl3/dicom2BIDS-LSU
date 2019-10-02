@@ -17,3 +17,7 @@ The pipeline can be run again to add new subjects to the folder structure. This 
 ### Before running:
 Code assumes that files from the Pennington Scanner have been extracted
 EX: example.tgz -> a folder containing MRI series sub-folders (example/Ser1 etc...)
+
+## Authors
+
+* **Zachary Traylor** - *CNAPS Lab, LSU* - [CNAPS LSU](https://github.com/cnapslab)
