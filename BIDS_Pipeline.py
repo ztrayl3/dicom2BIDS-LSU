@@ -117,14 +117,13 @@ for i in dirs:
 		k = k.replace('bold', '_bold')
 		j = j.split(os.sep)[1]
 		k = k.split(os.sep)[1]  # remove extra subject id from beginning of j and k ("sub-001/" and "18072/" for example)
-		#print j + " -> " + k
-		#print
 
 		if "SAG_MPRAGE" in j:  # anything relating to anatomical scans
 			k = k.split("_")
 			k.pop(1)
 			k.insert(1, "T1w")
-			k = "_".join(k)  # name of anatomical scan now T1w not task-SAG_MPRAGE (ex: sub-001_T1w_bold.nii.gz)
+			k[-1] = k[-1][4:]  # remove "bold" from anatomical names
+			k = "_".join(k)  # name of anatomical scan now T1w not task-SAG_MPRAGE (ex: sub-001_T1w.nii.gz)
 
 			shutil.move(i + os.sep + j, destination + os.sep + "anat")
 			os.rename(os.path.join(destination, "anat", j), os.path.join(destination, "anat", k))
