@@ -123,7 +123,7 @@ for i in dirs:
 			k.pop(1)
 			k.insert(1, "T1w")
 			k[-1] = k[-1][4:]  # remove "bold" from anatomical names
-			k = "_".join(k)  # name of anatomical scan now T1w not task-SAG_MPRAGE (ex: sub-001_T1w.nii.gz)
+			k = k[0 + '_' + k[1] + k[2]  # name of anatomical scan now T1w not task-SAG_MPRAGE (ex: sub-001_T1w.nii.gz)
 
 			shutil.move(i + os.sep + j, destination + os.sep + "anat")
 			os.rename(os.path.join(destination, "anat", j), os.path.join(destination, "anat", k))
