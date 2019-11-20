@@ -2,6 +2,7 @@
 import pydicom
 import tarfile
 import shutil
+import json
 import glob
 import csv
 import sys
@@ -111,7 +112,7 @@ for i in dirs:
 	targets.extend(glob.glob(i + os.sep + "*.json"))
 	for j in targets:
 		# fix file name formatting messed up by dcm2niix
-		k = j.replace(i, conversion[i])  # k now contains corrected name (ex: sub-001/sub-001_task-AUTOBIO-1_bold.nii.gz)
+		k = j.replace(i, conversion[i])  # k now contains corrected name (ex: sub-001/sub-001_task-AUTOBIO1_bold.nii.gz)
 		k = k.replace('_', '')
 		k = k.replace('task', '_task')
 		k = k.replace('bold', '_bold')
@@ -134,6 +135,14 @@ for i in dirs:
 			os.remove(i + os.sep + j)
 
 		else:  # everything related to functional scans
+			if j[-4:] == "json":  # add TaskName attribute to json files
+				tn = {"TaskName": k.split('_')[1][5:]}  # TaskName should be task-AUTOBIO1 for example, but without the "task-"
+				with open(i + os.sep + j) as f:
+					data = json.load(f)
+				data.update(tn)
+				with open(i + os.sep + j, 'w') as f:
+					json.dump(data, f)  # json file now updated, only functional images need this addition
+
 			shutil.move(i + os.sep + j, destination + os.sep + "func")
 			os.rename(os.path.join(destination, "func", j), os.path.join(destination, "func", k))
 	print i + " ({}) Done".format(conversion[i])
