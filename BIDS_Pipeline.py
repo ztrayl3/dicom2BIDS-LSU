@@ -35,6 +35,14 @@ except OSError:
 	already_run = True  # if it is already there, prepare to add new folders
 ################
 
+# dataset description
+if not os.path.isfile(start + os.sep + "dataset_description.json"):  # if the description file isn't there already
+	n = raw_input("Insert string to be used as Study Name: ")
+	dd = {"BIDSVersion": "1.2.1", "Name": n}
+	with open(start + os.sep + "dataset_description.json", 'w') as outfile:
+		json.dump(dd, outfile)
+###############
+
 # remove irrelevant folders and files from iteration to avoid errors
 if already_run:  # if not first time, all previous folders "irrelevant"
 	print "Pipeline has been run before, ignoring previous subjects."
@@ -46,7 +54,7 @@ if already_run:  # if not first time, all previous folders "irrelevant"
 
 	# pick up where it left off
 	sub_count = conversion[max(conversion, key=lambda key: conversion[key])]  # update sub_count to max where we left off last time
-	sub_count = int(sub_count.split('-')[1].lstrip('0')) + 1 # ensure we only have the integer portion of "sub-001" (turn it to 1)
+	sub_count = int(sub_count.split('-')[1].lstrip('0')) + 1 # ensure we only have the integer portion of "sub-001" (turn it to 1 rather than "001")
 	# also add 1 to sub_count to not overwrite most recent folder
 
 	# run the rest of script off of new, shortened dirs list
@@ -148,3 +156,6 @@ for i in dirs:
 	print i + " ({}) Done".format(conversion[i])
 	print
 ################################
+
+print "Double check the BIDS validity of your dataset and make any corrections with the online BIDS Validator tool"
+print "https://bids-standard.github.io/bids-validator/"
